@@ -17,7 +17,8 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("toDoItems", toDoItemDao.getAll());
+        model.addAttribute("notResolvedToDoItems", toDoItemDao.getAllNotResolved());
+        model.addAttribute("resolvedToDoItems", toDoItemDao.getAllResolved());
         if (!model.containsAttribute("newToDoItem")) {
             model.addAttribute("newToDoItem", new ToDoItem());
         }
