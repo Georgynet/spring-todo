@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.sllite.springtodo.dao.ToDoItemDao;
+import ru.sllite.springtodo.models.ToDoItem;
 
 @Controller
 public class IndexController {
@@ -17,6 +18,9 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("toDoItems", toDoItemDao.getAll());
+        if (!model.containsAttribute("newToDoItem")) {
+            model.addAttribute("newToDoItem", new ToDoItem());
+        }
         return "index/index";
     }
 }

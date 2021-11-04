@@ -1,5 +1,6 @@
 package ru.sllite.springtodo.config;
 
+import org.springframework.lang.NonNull;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -18,12 +19,13 @@ public class MvcDispatcherServletInitializer extends AbstractAnnotationConfigDis
     }
 
     @Override
+    @NonNull
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
 
     @Override
-    public void onStartup(ServletContext aServletContext) throws ServletException {
+    public void onStartup(@NonNull ServletContext aServletContext) throws ServletException {
         super.onStartup(aServletContext);
         registerHiddenFieldFilter(aServletContext);
     }

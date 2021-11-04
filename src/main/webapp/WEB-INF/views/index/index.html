@@ -6,9 +6,19 @@
 </head>
 <body>
     <h1>ToDo List</h1>
-
-    <ul th:each="toDoItem : ${toDoItems}">
-        <li th:text="${toDoItem.getText()}">toDoItemText</li>
+    <ul>
+        <li th:each="toDoItem : ${toDoItems}">
+            <label th:text="${toDoItem.getText()}" th:for="'toDoItem' + ${toDoItem.getId()}"></label>
+            <input type="checkbox" th:checked="${toDoItem.isResolve()}" th:id="'toDoItem' + ${toDoItem.getId()}" />
+        </li>
     </ul>
+
+    <form th:action="@{/todo-items}" th:method="POST" th:object="${newToDoItem}">
+        <label for="newToDoItem">New ToDo: </label>
+        <input type="text" id="newToDoItem" name="text">
+        <div th:if="${#fields.hasErrors('text')}" th:errors="*{text}" style="color:red">Text error</div>
+        <br>
+        <input type="submit" value="Add">
+    </form>
 </body>
 </html>

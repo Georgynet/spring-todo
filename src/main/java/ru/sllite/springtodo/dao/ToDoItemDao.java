@@ -19,6 +19,10 @@ public class ToDoItemDao {
     }
 
     public List<ToDoItem> getAll() {
-        return jdbcTemplate.query("SELECT * FROM todo_item", new BeanPropertyRowMapper<>(ToDoItem.class));
+        return jdbcTemplate.query("SELECT * FROM todo_item ORDER BY id", new BeanPropertyRowMapper<>(ToDoItem.class));
+    }
+
+    public void save(ToDoItem toDoItem) {
+        jdbcTemplate.update("INSERT INTO todo_item (text) VALUES (?)", toDoItem.getText());
     }
 }

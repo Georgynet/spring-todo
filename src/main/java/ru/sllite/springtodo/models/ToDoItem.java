@@ -1,12 +1,16 @@
 package ru.sllite.springtodo.models;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class ToDoItem {
     private int id;
 
     @NotEmpty(message = "Text should not be empty")
     private String text;
+
+    @NotNull(message = "Resolve should not be null")
+    private boolean resolve = false;
 
     public ToDoItem() {
     }
@@ -30,5 +34,13 @@ public class ToDoItem {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isResolve() {
+        return resolve;
+    }
+
+    public void setResolve(boolean resolve) {
+        this.resolve = resolve;
     }
 }
