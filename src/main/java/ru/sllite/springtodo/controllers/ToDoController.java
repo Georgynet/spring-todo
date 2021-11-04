@@ -2,9 +2,7 @@ package ru.sllite.springtodo.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.sllite.springtodo.dao.ToDoItemDao;
 import ru.sllite.springtodo.models.ToDoItem;
@@ -33,6 +31,24 @@ public class ToDoController {
         }
 
         toDoItemDao.save(newToDoItem);
+        return "redirect:/";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        toDoItemDao.delete(id);
+        return "redirect:/";
+    }
+
+    @PatchMapping("/resolve/{id}")
+    public String resolve(@PathVariable("id") int id) {
+        toDoItemDao.resolve(id);
+        return "redirect:/";
+    }
+
+    @PatchMapping("/open/{id}")
+    public String open(@PathVariable("id") int id) {
+        toDoItemDao.open(id);
         return "redirect:/";
     }
 }

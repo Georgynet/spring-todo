@@ -10,6 +10,24 @@
         <li th:each="toDoItem : ${toDoItems}">
             <label th:text="${toDoItem.getText()}" th:for="'toDoItem' + ${toDoItem.getId()}"></label>
             <input type="checkbox" th:checked="${toDoItem.isResolve()}" th:id="'toDoItem' + ${toDoItem.getId()}" />
+
+            <form th:action="@{/todo-items/{id}(id = ${toDoItem.getId()})}" th:method="DELETE" th:object="${toDoItem}">
+                <input type="hidden" th:value="${toDoItem.getId()}"/>
+                <br>
+                <input type="submit" value="X">
+            </form>
+
+            <form th:if="${!toDoItem.isResolve()}" th:action="@{/todo-items/resolve/{id}(id = ${toDoItem.getId()})}" th:method="PATCH" th:object="${toDoItem}">
+                <input type="hidden" th:value="${toDoItem.getId()}"/>
+                <br>
+                <input type="submit" value="V">
+            </form>
+
+            <form th:if="${toDoItem.isResolve()}"  th:action="@{/todo-items/open/{id}(id = ${toDoItem.getId()})}" th:method="PATCH" th:object="${toDoItem}">
+                <input type="hidden" th:value="${toDoItem.getId()}"/>
+                <br>
+                <input type="submit" value="O">
+            </form>
         </li>
     </ul>
 

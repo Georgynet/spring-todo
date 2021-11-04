@@ -22,6 +22,18 @@ public class ToDoItemDao {
         return jdbcTemplate.query("SELECT * FROM todo_item ORDER BY id", new BeanPropertyRowMapper<>(ToDoItem.class));
     }
 
+    public void resolve(int id) {
+        jdbcTemplate.update("UPDATE todo_item SET resolve = true WHERE id = ?", id);
+    }
+
+    public void open(int id) {
+        jdbcTemplate.update("UPDATE todo_item SET resolve = false WHERE id = ?", id);
+    }
+
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM todo_item WHERE id = ?", id);
+    }
+
     public void save(ToDoItem toDoItem) {
         jdbcTemplate.update("INSERT INTO todo_item (text) VALUES (?)", toDoItem.getText());
     }
