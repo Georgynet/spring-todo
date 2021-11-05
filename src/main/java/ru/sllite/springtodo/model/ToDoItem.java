@@ -1,11 +1,17 @@
-package ru.sllite.springtodo.models;
+package ru.sllite.springtodo.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class ToDoItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "serial")
     private int id;
 
+    @NotNull
     @NotEmpty(message = "Text should not be empty")
     private String text;
 
