@@ -11,6 +11,7 @@ public class ToDoItem {
     @Column(columnDefinition = "serial")
     private int id;
 
+    @NotNull
     @NotEmpty(message = "Text should not be empty")
     private String text;
 
