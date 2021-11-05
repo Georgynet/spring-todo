@@ -1,11 +1,11 @@
-package ru.sllite.springtodo.controllers;
+package ru.sllite.springtodo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ru.sllite.springtodo.dao.ToDoItemDao;
-import ru.sllite.springtodo.models.ToDoItem;
+import ru.sllite.springtodo.model.ToDoItem;
+import ru.sllite.springtodo.repository.ToDoItemRepository;
 
 import javax.validation.Valid;
 
@@ -13,10 +13,10 @@ import javax.validation.Valid;
 @RequestMapping("/todo-items")
 public class ToDoController {
 
-    private final ToDoItemDao toDoItemDao;
+    public ToDoItemRepository toDoItemRepository;
 
-    public ToDoController(ToDoItemDao toDoItemDao) {
-        this.toDoItemDao = toDoItemDao;
+    public ToDoController(ToDoItemRepository toDoItemRepository) {
+        this.toDoItemRepository = toDoItemRepository;
     }
 
     @PostMapping()
@@ -30,25 +30,29 @@ public class ToDoController {
             return "redirect:/";
         }
 
-        toDoItemDao.save(newToDoItem);
+        toDoItemRepository.save(newToDoItem);
         return "redirect:/";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        toDoItemDao.delete(id);
+        toDoItemRepository.deleteById(id);
         return "redirect:/";
     }
 
     @PatchMapping("/resolve/{id}")
     public String resolve(@PathVariable("id") int id) {
-        toDoItemDao.resolve(id);
+        ToDoItem toDoItem = toDoItemRepository.findById(id).stream().findAny().orElseThrow();
+        toDoItem.setResolve(true);
+        toDoItemRepository.save(toDoItem);
         return "redirect:/";
     }
 
     @PatchMapping("/open/{id}")
     public String open(@PathVariable("id") int id) {
-        toDoItemDao.open(id);
+        ToDoItem toDoItem = toDoItemRepository.findById(id).stream().findAny().orElseThrow();
+        toDoItem.setResolve(false);
+        toDoItemRepository.save(toDoItem);
         return "redirect:/";
     }
 }
