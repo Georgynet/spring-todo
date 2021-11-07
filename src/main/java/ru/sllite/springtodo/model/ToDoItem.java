@@ -14,7 +14,7 @@ public class ToDoItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     private ToDoList toDoList;
 
     @Column(nullable = false)
@@ -35,9 +35,9 @@ public class ToDoItem {
     public ToDoItem() {
     }
 
-    public ToDoItem(int id, String text) {
-        this.id = id;
+    public ToDoItem(String text, boolean resolve) {
         this.text = text;
+        this.resolve = resolve;
     }
 
     public int getId() {

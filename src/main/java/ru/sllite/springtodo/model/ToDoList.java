@@ -13,10 +13,14 @@ public class ToDoList {
     @NotEmpty(message = "Title should not be empty")
     private String title;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "toDoList")
+    @OneToMany(mappedBy = "toDoList")
     private List<ToDoItem> toDoItems;
 
     public ToDoList() {
+    }
+
+    public ToDoList(String title) {
+        this.title = title;
     }
 
     public int getId() {
