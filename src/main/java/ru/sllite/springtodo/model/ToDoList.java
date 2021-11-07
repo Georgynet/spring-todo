@@ -13,7 +13,7 @@ public class ToDoList {
     @NotEmpty(message = "Title should not be empty")
     private String title;
 
-    @OneToMany(mappedBy = "toDoList")
+    @OneToMany(mappedBy = "toDoList", cascade = CascadeType.ALL)
     private List<ToDoItem> toDoItems;
 
     public ToDoList() {

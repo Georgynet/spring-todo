@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.sllite.springtodo.model.ToDoItem;
+import ru.sllite.springtodo.model.ToDoList;
 import ru.sllite.springtodo.repository.ToDoItemRepository;
 import ru.sllite.springtodo.repository.ToDoListRepository;
 
@@ -27,6 +28,9 @@ public class IndexController {
         if (!model.containsAttribute("newToDoItem")) {
             model.addAttribute("newToDoItem", new ToDoItem());
         }
+        if (!model.containsAttribute("newToDoList")) {
+            model.addAttribute("newToDoList", new ToDoList());
+        }
 
         return "index/index";
     }
@@ -41,6 +45,9 @@ public class IndexController {
 
         if (!model.containsAttribute("newToDoItem")) {
             model.addAttribute("newToDoItem", new ToDoItem());
+        }
+        if (!model.containsAttribute("newToDoList")) {
+            model.addAttribute("newToDoList", new ToDoList());
         }
 
         return "index/list";
