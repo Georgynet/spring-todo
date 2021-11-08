@@ -21,7 +21,7 @@
                             <a th:href="@{/list/{id}(id = ${toDoList.getId()})}" th:text="${toDoList.getTitle()}"></a>
                         </div>
                         <div class="col-2">
-                            <form th:action="@{/todo-list/{id}(id = ${toDoList.getId()})}" th:method="DELETE" th:object="${toDoList}">
+                            <form th:action="@{/todo-lists/{id}(id = ${toDoList.getId()})}" th:method="DELETE" th:object="${toDoList}">
                                 <button type="submit" class="btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -33,6 +33,19 @@
                     </div>
                 </li>
             </ul>
+
+            <div class="col-12 mt-5">
+                <form th:action="@{/todo-lists}" th:method="POST" th:object="${newToDoList}" class="row row-cols-lg g-3 align-items-center">
+                    <div class="col-10">
+                        <input type="text" name="title" class="form-control" th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" placeholder="New ToDo List">
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:class="invalid-feedback">Text error</div>
+                    </div>
+
+                    <div class="col-2">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

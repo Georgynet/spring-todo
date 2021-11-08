@@ -33,6 +33,19 @@
                     </div>
                 </li>
             </ul>
+
+            <div class="col-12 mt-5">
+                <form th:action="@{/todo-lists}" th:method="POST" th:object="${newToDoList}" class="row row-cols-lg g-3 align-items-center">
+                    <div class="col-10">
+                        <input type="text" name="title" class="form-control" th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" placeholder="New ToDo List">
+                        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:class="invalid-feedback">Text error</div>
+                    </div>
+
+                    <div class="col-2">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="col-8">
             <h2>ToDo's</h2>

@@ -12,11 +12,11 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/todo-items")
-public class ToDoController {
+public class ToDoItemsController {
 
-    public ToDoItemRepository toDoItemRepository;
+    private final ToDoItemRepository toDoItemRepository;
 
-    public ToDoController(ToDoItemRepository toDoItemRepository) {
+    public ToDoItemsController(ToDoItemRepository toDoItemRepository) {
         this.toDoItemRepository = toDoItemRepository;
     }
 
