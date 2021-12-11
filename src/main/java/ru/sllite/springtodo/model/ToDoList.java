@@ -16,6 +16,9 @@ public class ToDoList {
     @OneToMany(mappedBy = "toDoList", cascade = CascadeType.ALL)
     private List<ToDoItem> toDoItems;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     public ToDoList() {
     }
 
@@ -41,5 +44,13 @@ public class ToDoList {
 
     public List<ToDoItem> getToDoItems() {
         return toDoItems;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
