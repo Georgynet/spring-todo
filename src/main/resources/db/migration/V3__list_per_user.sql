@@ -1,0 +1,1 @@
+ALTER TABLE to_do_list ADD COLUMN user_id integer NOT NULL;

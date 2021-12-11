@@ -1,11 +1,14 @@
 package ru.sllite.springtodo.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.sllite.springtodo.model.ToDoItem;
 import ru.sllite.springtodo.model.ToDoList;
+import ru.sllite.springtodo.model.UserDetail;
 import ru.sllite.springtodo.repository.ToDoItemRepository;
 import ru.sllite.springtodo.repository.ToDoListRepository;
 
@@ -23,7 +26,9 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("allLists", toDoListRepository.findAll());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("allLists", toDoListRepository.findAllByUser(((UserDetail)auth.getPrincipal()).getUser()));
 
         if (!model.containsAttribute("newToDoItem")) {
             model.addAttribute("newToDoItem", new ToDoItem());
@@ -37,7 +42,9 @@ public class IndexController {
 
     @GetMapping("/list/{id}")
     public String list(@PathVariable("id") int id, Model model) {
-        model.addAttribute("allLists", toDoListRepository.findAll());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("allLists", toDoListRepository.findAllByUser(((UserDetail)auth.getPrincipal()).getUser()));
 
         model.addAttribute("currentListId", id);
         model.addAttribute("notResolvedToDoItems", toDoItemRepository.findAllByResolveAndToDoListId(false, id));

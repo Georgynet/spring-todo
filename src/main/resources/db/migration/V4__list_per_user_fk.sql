@@ -1,0 +1,1 @@
+ALTER TABLE to_do_list  ADD CONSTRAINT to_do_list_user_id FOREIGN KEY (user_id) REFERENCES "user" (id) NOT DEFERRABLE;

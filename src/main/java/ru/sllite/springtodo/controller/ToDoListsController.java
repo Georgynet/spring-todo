@@ -1,10 +1,13 @@
 package ru.sllite.springtodo.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.sllite.springtodo.model.ToDoList;
+import ru.sllite.springtodo.model.UserDetail;
 import ru.sllite.springtodo.repository.ToDoListRepository;
 
 import javax.validation.Valid;
@@ -23,6 +26,8 @@ public class ToDoListsController {
     public String create(@ModelAttribute("newToDoList") @Valid ToDoList newToDoList, BindingResult bindingResult,
                          RedirectAttributes redirectAttributes
     ) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        newToDoList.setUser(((UserDetail)auth.getPrincipal()).getUser());
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newToDoList", bindingResult);
             redirectAttributes.addFlashAttribute("newToDoList", newToDoList);
